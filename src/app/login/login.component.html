@@ -1,0 +1,29 @@
+<h2>Login Form</h2>
+  
+    <form [formGroup]='signupForm' (ngSubmit)="PostData(signupForm)" >
+        <div class="imgcontainer">
+            <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar" class="avatar">
+        </div>
+        <div class="container form-group">
+            <div class="row container">
+                    <label for="psw"><b>Email</b></label>
+                    <input  type="text" formControlName="email" placeholder="Email" />
+                    <!-- <div *ngIf="email.errors.required" class="error">Invalid Email</div> -->
+            </div>
+            
+            <div class="row container">
+                    <label for="psw"><b>Password</b></label>
+                    <input  type="password" formControlName="password" placeholder="password" required="" />
+                    <!-- <div *ngIf="password.errors.required" class="error">Invalid Password</div> -->
+            </div>
+            
+            <button type="submit" [disabled]='!signupForm.valid' >Login</button>
+            
+            <a routerLink="/register" href="#">
+                <button type="submit" class="register" >Register Here</button>
+            </a>
+        </div>
+        
+    </form>
+  
+<router-outlet></router-outlet>
