@@ -6,7 +6,7 @@ input[type=text], input[type=password] {
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   box-sizing: border-box;
 }
 
@@ -14,13 +14,27 @@ h2{
   text-align: center;
 }
 button {
-  background-color: #33D4FF;
+  background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
-  cursor: pointer;
+  /* cursor: pointer; */
   width: 100%;
+}
+
+/* button:hover {
+  border: 1px solid #0099cc;
+  background-color: #00aacc;
+  color: #ffffff;
+  padding: 5px 10px;
+} */
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 
 .register {

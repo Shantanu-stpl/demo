@@ -24,17 +24,19 @@ export class LoginComponent implements OnInit {
       password:['', [Validators.required, Validators.minLength(6)]]
 
     });
-     console.log(this.signupForm.status);
-     console.log(this.signupForm.controls);
+    //  console.log(this.signupForm.status);
+    //  console.log(this.signupForm.controls);
    }
 
   ngOnInit() {
     let config = {
       headers: { 'Content-Type': 'application/json','Accept': 'application/json' }
     };
-    axios.get('http://quitsmoking.srmtechsol.com/public/api/getQA', config)
+    axios.get('http://localhost/shantanu/quitsmoking/public/api/getQA', config)
     .then(res => {
       // console.log(res);
+    }).catch(function (error) {
+      console.log(error);
     });
   }
   // get f() { console.log(this.signupForm.controls); }

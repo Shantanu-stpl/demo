@@ -19,8 +19,15 @@ button {
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
-  cursor: pointer;
+  /* cursor: pointer; */
   width: 100%;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 
 .register {
