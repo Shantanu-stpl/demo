@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     let config = {
       headers: { 'Content-Type': 'application/json','Accept': 'application/json' }
     };
-    axios.get('http://quitsmoking.srmtechsol.com/public/api/getQA', config)
+    axios.get('https://ccnavigator.app/api/getQA', config)
     .then(res => {
       // console.log(res);
     }).catch(function (error) {
@@ -54,8 +54,9 @@ export class LoginComponent implements OnInit {
     var datas = {"email" : this.signupForm.value['email'],"password" : this.signupForm.value['password']};
     var data = JSON.stringify(datas);
 
-    axios.post('http://quitsmoking.srmtechsol.com/public/api/reactLogin', data, config)
+    axios.post('https://ccnavigator.app/api/reactLogin', data, config)
          .then((response) => {
+            var message = response.data.message;
             if(response.data.status=="Success"){
              localStorage.setItem('fname',response.data.result[0].first_name);
              localStorage.setItem('lname',response.data.result[0].last_name);
@@ -63,18 +64,20 @@ export class LoginComponent implements OnInit {
              localStorage.setItem('address',response.data.result[0].address);
              localStorage.setItem('mobile',response.data.result[0].mobile);
              this.router.navigate(['/dashboard']);
-             this.toastrService.success('Success','Logged in successfully.', {
+             console.log(response.data);
+             this.toastrService.success('Success',message, {
               timeOut: 3000
             });
            }
            else{
-            this.toastrService.error('Failed','Invalid Email or Password.', {
-              timeOut: 3000
+            this.toastrService.error('Failed',message, {
+            timeOut: 3000
             });
             // this.toastrService.error('Failed','Invalid Email or Password.');
             // alert("Invalid Credentials !");
-            this.spinner.hide();
            }
+           this.spinner.hide();
+
             console.log(response);
     }).catch(function (error) {
     console.log(error);

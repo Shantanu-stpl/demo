@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import axios from 'axios';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registeration',
@@ -21,7 +22,7 @@ export class RegisterationComponent implements OnInit {
   address:string="";
   password:string="";
 
-  constructor(private frmbuilder:FormBuilder,private router: Router,private spinner: NgxSpinnerService) {
+  constructor(private toastrService:ToastrService,private frmbuilder:FormBuilder,private router: Router,private spinner: NgxSpinnerService) {
     this.signupForm2 = frmbuilder.group({
       fname:['',Validators.required],
       lname:['',Validators.required],
@@ -48,10 +49,10 @@ export class RegisterationComponent implements OnInit {
     // console.log(data);
     //var server = "http://quitsmoking.srmtechsol.com/public/api";
     //var local = "http://localhost/shantanu/quitsmoking/public/api";
-    axios.post('http://quitsmoking.srmtechsol.com/public/api/angularStore', data, config)
+    axios.post('https://ccnavigator.app/api/angularStore', data, config)
          .then((responses) => {
           console.log(responses);
-
+          var message = responses.data.message;
           if(responses.data.status=="Success"){
             localStorage.setItem('fname',responses.data.result.user_info.first_name);
              localStorage.setItem('lname',responses.data.result.user_info.last_name);
@@ -59,7 +60,18 @@ export class RegisterationComponent implements OnInit {
              localStorage.setItem('address',responses.data.result.user_info.address);
              localStorage.setItem('mobile',responses.data.result.user_info.mobile);
              this.router.navigate(['/dashboard']);
+             this.toastrService.success('Success',message, {
+              timeOut: 3000
+            });
            }
+           else{
+            this.toastrService.error('Failed',message, {
+            timeOut: 3000
+            });
+          }
+            // this.toastrService.error('Failed','Invalid Email or Password.');
+            // alert("Invalid Credentials !");
+            this.spinner.hide();
              
     }).catch(function (error) {
       console.log(error);
