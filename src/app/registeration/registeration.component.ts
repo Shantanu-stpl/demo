@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import axios from 'axios';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-registeration',
@@ -20,7 +21,7 @@ export class RegisterationComponent implements OnInit {
   address:string="";
   password:string="";
 
-  constructor(private frmbuilder:FormBuilder,private router: Router) {
+  constructor(private frmbuilder:FormBuilder,private router: Router,private spinner: NgxSpinnerService) {
     this.signupForm2 = frmbuilder.group({
       fname:['',Validators.required],
       lname:['',Validators.required],
@@ -33,9 +34,11 @@ export class RegisterationComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log('spinner chaalu');
   }
 
   PostData(signupForm2:any){
+    this.spinner.show();
     // console.log(this.signupForm.value['email']);
     let config = {
       headers: { 'Content-Type': 'application/json','Accept': 'application/json' }
@@ -59,11 +62,13 @@ export class RegisterationComponent implements OnInit {
            }
              
     }).catch(function (error) {
-    console.log(error);
+      console.log(error);
+      this.spinner.hide();
   })
   .then(function () {
     // console.log('always');
   });
+
   }
 
 }
